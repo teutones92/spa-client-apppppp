@@ -1,0 +1,54 @@
+name: spa_client_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  cloud_firestore: ^5.5.0
+  cloud_functions: ^5.1.5
+  file_picker: 8.1.6
+  firebase_auth: ^5.3.3
+  firebase_core: ^3.9.0
+  firebase_database: ^11.1.6
+  firebase_storage: ^12.3.7
+  flick_video_player: ^0.9.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.14.1
+  font_awesome_flutter: ^10.8.0
+  get_thumbnail_video: ^0.7.3
+  image_cropper: ^8.1.0
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+  permission_handler: ^11.3.1
+  qr_flutter: ^4.1.0
+  shared_preferences: ^2.3.3
+  url_launcher: ^6.3.1
+  video_player: ^2.9.2
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Thin.ttf
+

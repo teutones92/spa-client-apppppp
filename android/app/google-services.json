@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "622292402778",
+    "project_id": "sierra-pitching-academy",
+    "storage_bucket": "sierra-pitching-academy.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622292402778:android:2912446fc94f1dc07dce63",
+        "android_client_info": {
+          "package_name": "com.teutondev.spa_client_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIDPLDtcPJgd5r6PhgKe9LrUQPHOxl5_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:622292402778:android:45413310667812127dce63",
+        "android_client_info": {
+          "package_name": "com.teutondev.spacoach"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIDPLDtcPJgd5r6PhgKe9LrUQPHOxl5_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
