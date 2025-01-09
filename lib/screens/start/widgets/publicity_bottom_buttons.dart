@@ -17,7 +17,7 @@ class PublicityBottomButtons extends StatelessWidget {
               duration: const Duration(milliseconds: 400),
               padding: EdgeInsets.symmetric(
                   vertical: 20, horizontal: state.swapButtons ? 20 : 0),
-              margin: const EdgeInsets.symmetric(horizontal: 13),
+              margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 color: state.swapButtons
                     ? const Color.fromARGB(131, 158, 158, 158)
@@ -45,8 +45,9 @@ class PublicityBottomButtons extends StatelessWidget {
                       return Padding(
                         padding: EdgeInsets.only(bottom: index == 0 ? 20 : 0),
                         child: ElevatedButton(
-                          onPressed: () =>
-                              context.read<PublicityBloc>().actions(item),
+                          onPressed: () => context
+                              .read<PublicityBloc>()
+                              .actions(item, context),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color.fromARGB(131, 158, 158, 158),

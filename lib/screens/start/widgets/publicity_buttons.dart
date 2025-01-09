@@ -11,68 +11,59 @@ class PublicityButtons extends StatelessWidget {
       final bloc = context.read<PublicityBloc>();
       return BlocBuilder<PublicityBloc, PublicityBlocState>(
         builder: (context, state) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                shrinkWrap: true,
-                itemCount: state.promoModelsList.length,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                semanticChildCount: 2,
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) {
-                  final item = state.promoModelsList[index];
-                  return Card(
-                    elevation: 0,
-                    color: const Color.fromARGB(88, 140, 140, 140),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(10),
-                      onTap: () => bloc.openPublicity(context, item),
-                      child: Column(
-                        children: [
-                          const Spacer(flex: 2),
-                          AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 500),
-                            child: !item.iconImage.contains('https')
-                                ? Image.asset(
-                                    'assets/images/loading.gif',
-                                    height: 90,
-                                    width: 90,
-                                  )
-                                : FadeInImage.assetNetwork(
-                                    placeholder: 'assets/images/loading.gif',
-                                    image: item.iconImage,
-                                    height: 90,
-                                    width: 90,
-                                  ),
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              item.title.text,
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+          return GridView.builder(
+            shrinkWrap: true,
+            itemCount: state.promoModelsList.length,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
             ),
+            semanticChildCount: 2,
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              final item = state.promoModelsList[index];
+              return Card(
+                elevation: 0,
+                color: const Color.fromARGB(88, 140, 140, 140),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => bloc.openPublicity(context, item),
+                  child: Column(
+                    children: [
+                      const Spacer(flex: 2),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        child: !item.iconImage.contains('https')
+                            ? Image.asset(
+                                'assets/images/loading.gif',
+                                height: 90,
+                                width: 90,
+                              )
+                            : FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/loading.gif',
+                                image: item.iconImage,
+                                height: 90,
+                                width: 90,
+                              ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        item.title.text,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           );
         },
       );

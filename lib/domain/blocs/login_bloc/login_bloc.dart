@@ -8,20 +8,26 @@ import 'package:spa_client_app/global/global_snack.dart';
 import 'package:spa_client_app/models/server/user_models/user_data_model/user_data.dart';
 import 'package:spa_client_app/models/server/user_models/user_role_model/user_role.dart';
 
-class LoginBlocState{
+class LoginBlocState {
   final ServerUserData? user;
   final bool loading;
+  final bool obscurePassword;
 
-  LoginBlocState({required this.user, required this.loading});
+  LoginBlocState(
+      {required this.user,
+      required this.loading,
+      required this.obscurePassword});
 
   factory LoginBlocState.initial() {
-    return LoginBlocState(user: null, loading: false);
+    return LoginBlocState(user: null, loading: false, obscurePassword: false);
   }
 
-  LoginBlocState copyWith({ServerUserData? user, bool? loading}) {
+  LoginBlocState copyWith(
+      {ServerUserData? user, bool? loading, bool? obscurePassword}) {
     return LoginBlocState(
       user: user ?? this.user,
       loading: loading ?? this.loading,
+      obscurePassword: obscurePassword ?? this.obscurePassword,
     );
   }
 }
@@ -33,8 +39,8 @@ class LoginBloc extends Cubit<LoginBlocState> {
     TextEditingController(),
     TextEditingController(),
   ];
-  ValueNotifier<bool> obscure = ValueNotifier(true);
-  ValueNotifier<bool> isLoading = ValueNotifier(false);
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   final RegExp emailRegExp = RegExp(
       r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+(?:\.[a-zA-Z]+)?$',
@@ -54,23 +60,27 @@ class LoginBloc extends Cubit<LoginBlocState> {
   ///
   /// Displays appropriate snack bar messages for different error cases.
   ///
+
+  void swapPasswordVisivility() =>
+      emit(state.copyWith(obscurePassword: !state.obscurePassword));
+
   /// [context] The build context to show snack bars and navigate.
   Future<void> login(BuildContext context) async {
     if (!emailRegExp.hasMatch(controllers[0].text)) {
       GlobalSnack.show(context: context, message: 'Invalid email');
       return;
     }
-    isLoading.value = true;
+    state.copyWith(loading: true);
     if (controllers[0].text.isEmpty || controllers[1].text.isEmpty) {
       GlobalSnack.show(context: context, message: 'Please fill all fields');
-      isLoading.value = false;
+      state.copyWith(loading: false);
       return;
     }
     await UserAuthService.userLogin(
             email: controllers[0].text, pass: controllers[1].text)
         .then((resp) async {
       if (resp == null) {
-        isLoading.value = false;
+        state.copyWith(loading: false);
         if (!context.mounted) return;
         GlobalSnack.show(context: context, message: 'Invalid credentials');
         return;
@@ -79,7 +89,7 @@ class LoginBloc extends Cubit<LoginBlocState> {
       final List<UserRole> userRoles = await DbUserRolesService.getUserRoles();
 
       if (currentUser == null) {
-        isLoading.value = false;
+        state.copyWith(loading: false);
         await UserAuthService.userLogout();
         if (!context.mounted) return;
         GlobalSnack.show(context: context, message: 'User not found');
@@ -89,12 +99,12 @@ class LoginBloc extends Cubit<LoginBlocState> {
       if (!await _isUserAllowed(currentUser, userRoles, context)) return;
 
       if (!resp.user!.emailVerified) {
-        isLoading.value = false;
+        state.copyWith(loading: false);
         FirebaseAuth.instance.currentUser!.sendEmailVerification();
         if (!context.mounted) return;
         GlobalSnack.show(context: context, message: 'Verification email sent');
       } else {
-        isLoading.value = false;
+        state.copyWith(loading: false);
         if (!context.mounted) return;
         // Navigator.pushAndRemoveUntil(
         //     context,
@@ -108,7 +118,7 @@ class LoginBloc extends Cubit<LoginBlocState> {
       }
     });
     await Future.delayed(const Duration(milliseconds: 500));
-    isLoading.value = false;
+    state.copyWith(loading: false);
   }
 
   /// Checks if the current user is allowed based on their role.
@@ -132,7 +142,7 @@ class LoginBloc extends Cubit<LoginBlocState> {
     final coachId =
         userRoles.firstWhere((element) => element.role == 'Coach').id;
     if (currentUser.roleId != managerId && currentUser.roleId != coachId) {
-      isLoading.value = false;
+      state.copyWith(loading: false);
       await UserAuthService.userLogout();
       if (!context.mounted) return false;
       GlobalSnack.show(context: context, message: 'User not allowed');

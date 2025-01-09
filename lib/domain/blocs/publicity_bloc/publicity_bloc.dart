@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spa_client_app/config/bloc_config.dart';
 import 'package:spa_client_app/domain/service/db_services/db_publicity_service/db_publicity_service.dart';
 import 'package:spa_client_app/models/server/publicity_model/publicity_model.dart';
+import 'package:spa_client_app/screens/logins/view/online_user_login/online_user_login.dart';
 
 class PublicityBlocState {
   final bool isLoading;
@@ -55,23 +56,23 @@ class PublicityBloc extends Cubit<PublicityBlocState> {
   void swapButtons(bool buttonIndex) async =>
       emit(state.copyWith(swapButtons: buttonIndex));
 
-  void actions(String item) {
+  void actions(String item, BuildContext context) {
     switch (item) {
       case "Temp User":
-        _goToTempUser();
+        _goToTempUser(context);
         break;
       case "Online User":
-        _goToOnlineUser();
+        _goToOnlineUser(context);
         break;
       case "Join now":
-        _joinNow();
+        _joinNow(context);
         break;
       default:
         emit(state.copyWith(swapButtons: true));
     }
   }
 
-  void _goToTempUser() {
+  void _goToTempUser(BuildContext context) {
     // Navigator.push(
     //   context,
     //   MaterialPageRoute(
@@ -80,16 +81,16 @@ class PublicityBloc extends Cubit<PublicityBlocState> {
     // );
   }
 
-  void _goToOnlineUser() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const OnlineUser(),
-    //   ),
-    // );
+  void _goToOnlineUser(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const OnlineUserLogin(),
+      ),
+    );
   }
 
-  void _joinNow() {}
+  void _joinNow(BuildContext context) {}
 
   /// Opens the publicity or store management page based on the provided `PublicityModel` item.
   ///
