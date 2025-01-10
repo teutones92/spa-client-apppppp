@@ -3,6 +3,7 @@ import 'package:spa_client_app/config/bloc_config.dart';
 import 'package:spa_client_app/domain/service/db_services/db_publicity_service/db_publicity_service.dart';
 import 'package:spa_client_app/models/server/publicity_model/publicity_model.dart';
 import 'package:spa_client_app/screens/logins/view/online_user_login/online_user_login.dart';
+import 'package:spa_client_app/screens/logins/view/temp_user_access/temp_user_access.dart';
 
 class PublicityBlocState {
   final bool isLoading;
@@ -73,12 +74,12 @@ class PublicityBloc extends Cubit<PublicityBlocState> {
   }
 
   void _goToTempUser(BuildContext context) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const TempUser(),
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const TempUserAccess(),
+      ),
+    );
   }
 
   void _goToOnlineUser(BuildContext context) {

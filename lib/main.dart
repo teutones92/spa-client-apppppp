@@ -6,7 +6,7 @@ import 'package:spa_client_app/config/theme_conf.dart';
 import 'package:spa_client_app/domain/service/user_auth_service/user_auth_service.dart';
 import 'package:spa_client_app/firebase_options.dart';
 import 'package:spa_client_app/providers/main_provider.dart';
-import 'package:spa_client_app/screens/start/start.dart';
+import 'package:spa_client_app/screens/landing/landing.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +23,7 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: MainProviders.providers,
       child: MaterialApp(
-        theme: MainThemeConf.theme(context),
-        home: const Start(),
-      ),
+          theme: MainThemeConf.theme(context), home: const Landing()),
     );
   }
 }
